@@ -6,12 +6,13 @@ if [ ! -d "$1" ];then
 	curl https://codeload.github.com/dromie/dlinksync/zip/master >master.zip
 	unzip master.zip
 	if [ -d dlinksync-master ];then
-		dlinksync-master/`basename $0` $PWD
+		chmod +x dlinksync-master/`basename $0`
+		dlinksync-master/`basename $0` $PWD/dlinksync-master
 	fi
 	popd
 else
 	pushd "$1"
-	DEST=ffp/opt/dlinksync
+	DEST=/ffp/opt/dlinksync
 	mkdir -p $DEST
 	cp * $DEST/
 	ln -sf $DEST/manual_sync.cgi /var/www/cgi-bin/manual_sync.cgi
