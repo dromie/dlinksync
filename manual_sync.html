@@ -1,4 +1,628 @@
-<HTML>
-<BODY>
-</BODY>
-</HTML>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+<link rel="stylesheet" type="text/css" href="/web/css/style.css?v20">
+<link rel="stylesheet" type="text/css" href="/web/css/button_style.css">
+<link rel="stylesheet" type="text/css" href="/web/css/application.css">
+
+<!-- jQuery lib -->
+<link rel="STYLESHEET" type="text/css" href="/web/jquery/css/redmond/jquery-ui-1.7.2.custom.css">
+<script type="text/javascript" src="/web/jquery/js/jquery.js"></script>
+<script type="text/javascript" src="/web/jquery/js/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/web/jquery/js/ui.core.js"></script>
+<script language="javascript" src="/web/jquery/js/jquery.tools.min.js"></script>
+<!-- Upload-->
+<script language="javascript" src="/web/jquery/ajaxfileupload/ajaxfileupload.js"></script>
+<!-- <link href="/web/jquery/ajaxfileupload/ajaxfileupload.css" type="text/css" rel="stylesheet"> -->
+<!-- Flexigrid  -->
+<link rel="STYLESHEET" type="text/css" href="/web/jquery/flexigrid/css/flexigrid.css">
+<script language="javascript" src="/web/jquery/flexigrid/js/flexigrid.js"></script>
+
+<!-- jAlerts -->
+<link rel="STYLESHEET" type="text/css" href="/web/jquery/alerts/jquery.alerts.css">
+<script language="javascript" src="/web/jquery/alerts/jquery.alerts.js"></script>
+
+<!-- niftycube -->
+<script language="javascript" src="/web/jquery/NiftyCube/niftycube.js"></script>
+<link rel="stylesheet" type="text/css" href="/web/jquery/NiftyCube/niftyCorners.css">
+
+<!-- Foloder tree -->
+<link rel="STYLESHEET" type="text/css" href="/web/jquery/jqueryFileTree/css/jqueryFileTree.css">
+<script language="javascript" src="/web/jquery/jqueryFileTree/js/jqueryFileTree.js"></script>
+
+<!-- curvycorners -->
+<script language="javascript" src="/web/jquery/curvycorners-2.0.4/curvycorners.src.js"></script>
+
+<!-- Context Menu -->
+<link href="/web/jquery/jquery.contextMenu-1.01/jquery.contextMenu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/web/jquery/jquery.contextMenu-1.01/jquery.contextMenu.js"></script>
+<script>
+var sys_time = (new Date()).getTime();
+document.write("<script language=\"javascript\" src=\"\/web\/function\/init.js?id="+sys_time+"\"><\/script>"); 
+document.write("<script language=\"javascript\" src=\"\/web\/function\/language.js?id="+sys_time+"\"><\/script>"); 
+document.write("<script language=\"javascript\" src=\"\/web\/function\/function.js?id="+sys_time+"\"><\/script>");    
+document.write("<script language=\"javascript\" src=\"/manual_sync.js?id="+sys_time+"\"><\/script>"); 
+
+document.write("<link rel=\"STYLESHEET\" type=\"text/css\" href=\"/web/css/style.css?id="+  sys_time+"\">");
+document.write("<link rel=\"STYLESHEET\" type=\"text/css\" href=\"/web/css/button_style.css?id="+  sys_time+"\">");
+</script>
+
+</head>
+<style>
+body, html {
+
+overflow:hidden;
+margin:0; padding:0; border:0;
+background-repeat: repeat-x;
+} /* Re-sets IE to "zero" for these values */
+ 
+.help_div {
+	width:232px;
+	/*height:300px;*/
+	background: #000000;
+	position: absolute;
+	font-size:14px;
+	color:#ffffff;
+	right:0px;
+	top:102px;
+	PADDING-LEFT: 15px;
+	PADDING-TOP: 15px;
+}
+
+
+#move_icon {
+	width:16px;
+	height:475px;
+	position: absolute;
+	right:225px;
+	top:50%;
+	cursor:pointer;
+}
+
+
+
+#menu_container div {
+	FONT-SIZE: 14px;
+	height:30px;
+	line-height: 30px;
+	cursor:pointer;
+}
+#menu_title {
+	PADDING-TOP: 15px;
+	PADDING-LEFT: 12px;
+	COLOR: #3366FF;
+	FONT-SIZE: 16px;
+}
+
+#main_container {
+	position:absolute;
+	left:15px;
+	/*top:198px;*/
+	top:138px;
+	/*background-image: url('/web/images/bg.jpg');*/
+	background: #ffffff;
+	padding: 8px 8px 8px 8px;	
+	border-right-style:solid; border-right-width:1px;
+	border-right-color:#444444;
+	border-left-style:solid; border-left-width:1px;
+	border-left-color:#444444;
+	border-bottom-style:solid; border-bottom-width:1px;
+	border-bottom-color:#444444;
+	
+}
+
+#id_percentage
+{
+	color:#ffffff;
+	size:15px;
+}
+
+.shareDiag {
+    margin: 0.5in auto;
+    color: #000;
+    padding: 20px;
+    text-align: left;
+    background-image: url('/web/pop_bg.png');
+    /*border: 1px solid #000;*/
+    background-repeat: repeat-x;
+    width:500px;
+    height:350px;
+    
+	border-radius:5px 5px 5px 5px;
+	-webkit-border-top-left-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	-moz-border-radius:5px 5px 5px 5px;
+}
+
+/* the overlayed element */ 
+.shareDiag {
+	/* must be initially hidden */
+	display:none;
+	
+	/* place overlay on top of other elements */
+	z-index:10000;
+	
+	/* CSS3 styling for latest browsers */
+	-moz-box-shadow:0 0 10px 10px #2A2A2A;
+	-webkit-box-shadow: 0 0 10px #2A2A2A;
+
+}
+
+/* close button positioned on upper right corner */
+.shareDiag .close {
+	background-image:url(/web/images/close.png);
+	position:absolute;
+	right:5px;
+	top:10px;
+	cursor:pointer;
+	height:32px;
+	width:35px;
+	z-index:20000;
+	background-repeat: no-repeat;
+}
+
+.shareDiag .close:hover {
+	background-image:url(/web/images/close_o.png);
+	position:absolute;
+	right:5px;
+	top:10px;
+	cursor:pointer;
+	height:32px;
+	width:35px;
+	z-index:20000;
+	background-repeat: no-repeat;
+}
+
+.diag_title{
+	font-size: 16px;
+	font-weight:bold;
+	color: #ffffff;
+}
+
+
+#my_scroll{
+	width:100%;height:350px
+}
+
+
+ 
+#title_right{ float:right;width:10px;
+	/*border:1px solid #cc0;*/
+	position:absolute;
+	height:36px;
+	right:15px;	
+	top:102px;
+	background-image: url('/web/images/management/banner_right2.png');
+	background-repeat: no-repeat;
+
+}
+
+#title_left{ float:left;width:10px;
+	/*border:1px solid #c60;*/
+	position:absolute;
+	height:36px;
+	left:15px;
+	top:102px;
+	background-image: url('/web/images/management/banner_left2.png');
+	background-repeat: no-repeat;
+	z-index:2;
+}
+.title_banner {
+	width:100%;
+	height:36px;
+	position:absolute;
+	left:20px;
+	top:102px;
+	background-image: url('/web/images/management/banner_center2.png');
+	color:#ffffff;
+}
+.title_banner div {
+	/*margin-top:8px;*/
+	line-height: 36px;
+	margin-left:13px;
+	color:#ffffff;
+	text-align:left;
+	font-size:14px;
+	height:36px;
+}
+
+#sub_menu_bottom{
+	position:absolute;
+	width:200px;
+	height:12px;
+	background-image: url('/web/images/management/sub_bottom.png');
+	background-repeat: no-repeat;
+	left:15px;
+}
+#r_corner{
+	position:absolute;
+	width:13px;
+	height:12px;
+	background-image: url('/web/images/management/r_corner.png');
+	background-repeat: no-repeat;
+	right:15px;
+}
+
+
+#sub_menu_bottom{
+	position:absolute;
+	width:200px;
+	height:12px;
+	background-image: url('/web/images/management/sub_bottom.png');
+	background-repeat: no-repeat;
+	left:15px;
+}
+#sub_menu_bottom_right{	
+	position:absolute;
+	width:13px;
+	height:12px;
+	background-image: url('/web/images/management/r_corner.png');
+	background-repeat: no-repeat;
+	right:15px;
+	bottom:25px;
+	z-index:2;	
+}
+#sub_menu_bottom_left{	
+	float:left;
+	position:absolute;
+	width:13px;
+	height:13px;
+	left:15px;
+	background-image: url('/web/images/management/l_corner.png');
+	background-repeat: no-repeat;	
+	bottom:24px;
+	z-index:2;	
+}
+</style>
+<script>
+	function displayScreenSize(flag)
+{				
+	
+		if($("#help_div").hasClass("help_show"))
+		{									
+			displayScreenSize_help();			
+		}
+		else
+			displayScreenSize_helphide()
+
+		if (flag == 1)
+		{		
+				mainFrame.window.location.reload();
+				helpFrame.window.location.reload();
+				//helpFrame.$('#my_scroll').jScrollPane({showArrows:true, scrollbarWidth: 15, arrowSize: 16});
+		}				
+}
+function displayScreenSize_help()
+{
+					var tmp = screen.height-$(window).height();
+					var obj_height = (screen.height -187 -tmp) + "px";
+					
+					var oBrowser = new detectBrowser();
+					if (oBrowser.isFF)
+					{							
+							var obj_height2 = (screen.height -180 -tmp - 36 ) + "px";
+					}	
+					else	
+					{							  				  						
+						  var obj_height2 = (screen.height -180 -tmp - 35 ) + "px";						  		  						
+					}					
+					var obj_height3 = (screen.height -179 -tmp ) + "px";
+					var obj_height4 = (screen.height -141-tmp) + "px";
+					var obj_height5 = (screen.height -155-tmp) + "px";
+					var location = (screen.height-20-tmp) + "px";
+					var location2 = (screen.height-30-tmp) + "px";
+					
+					var t = $(window).height();
+					var w = $(window).width();
+	
+	
+					if (t > 310 )
+					{				
+						$("#main_button").css("margin-top","0px");
+						$("#sub_menu").css('height',obj_height);				
+						$("#mainFrame").css('height',obj_height2);						
+						$("#main_container").css('height',obj_height3);
+						$("#help_div").css('height',obj_height4);
+						$("#helpFrame").css('height',obj_height5);		
+						$("#s_logo").css('top',location);
+						$("#sub_menu_bottom").css('top',location2);
+						var  l = $(window).width() -(15+13)
+						$("#sub_menu_bottom_right").css('left',l)
+						$("#sub_menu_bottom_right").css('bottom','24px');
+					
+					}
+					else
+					{	
+						$("#sub_menu_bottom_right").css('bottom','-15px');										
+					}	
+
+					/* 
+						special case
+					*/
+					if (t < 400 )
+					{
+						$("#main_button").hide();
+					}
+							//set width																
+					if ($(window).width() > 30)
+					{	
+						var oBrowser = new detectBrowser();
+					 	if (oBrowser.isFF)
+					 	{
+					    var w_px=$(window).width()-(15+15+15+20+231)
+					 	}
+						else 
+						{
+						    var w_px=$(window).width()-(15+15+15+24+227)
+						}						
+					  var w_px2 = $(window).width()-(15+15+232+16+15)						
+						
+						
+				    $("#main_container").css('width',w_px);
+						$("#title_banner").css('width',w_px2);																	
+						$("#title_right").css('right', "263px"); 
+						
+				   		var v = $("#title_banner").css("width");	   
+							l = parseInt(v.substr(0,v.length-2),10)+parseInt(17,10)+ "px"		    	
+							$("#sub_menu_bottom_right").css('left',l)						
+						
+					}				
+					else
+					{					
+							$("#main_container").css('width',"15px");
+							$("#title_right").css('right','-0px');		
+			
+							
+							size = $(window).width() -(15+15)
+							$("#title_banner").css('width',size);
+							
+							var v = $("#title_banner").css("width");	   
+							l = parseInt(v.substr(0,v.length-2),10)+parseInt(20,10)+ "px"		    	
+							$("#sub_menu_bottom_right").css('left',l)						
+					}	
+					Nifty("div#help_div","small tl bl fixed-height");
+}
+	
+function displayScreenSize_helphide()
+{
+
+	//set sub menu,main_container height size
+	var tmp = screen.height-$(window).height();
+	var obj_height = (screen.height -187 -tmp) + "px";
+					
+	var oBrowser = new detectBrowser();
+	if (oBrowser.isFF)
+	{							
+			var obj_height2 = (screen.height -180 -tmp - 36 ) + "px";
+	}	
+	else	
+	{							  				  						
+		  var obj_height2 = (screen.height -180 -tmp - 35 ) + "px";						  		  						
+	}					
+	var obj_height3 = (screen.height -179 -tmp ) + "px";
+	var obj_height4 = (screen.height -141-tmp) + "px";
+	var obj_height5 = (screen.height -155-tmp) + "px";
+	var location = (screen.height-20-tmp) + "px";
+	var location2 = (screen.height-30-tmp) + "px";
+	
+	var t = $(window).height();
+	var w = $(window).width();
+	
+	
+	if (t > 310 )
+	{
+		$("#sub_menu").css('height',obj_height);
+		$("#mainFrame").css('height',obj_height2);
+		$("#main_container").css('height',obj_height3);
+		$("#help_div").css('height',obj_height4);
+		$("#helpFrame").css('height',obj_height5);		
+		$("#s_logo").css('top',location);
+		$("#sub_menu_bottom").css('top',location2);
+		var  l = $(window).width() -(15+13)
+		$("#sub_menu_bottom_right").css('left',l)
+		$("#sub_menu_bottom_right").css('bottom','24px');
+		$("#main_button").show();
+	}
+	else
+	{	
+		$("#sub_menu_bottom_right").css('bottom','-15px');				
+		
+	}	
+
+	if (t < 400 )
+	{
+		$("#main_button").hide();
+	}
+	
+	//set container size				
+		var size= $(window).width() - (15+15+18) + "px";
+		if ($(window).width() > 250)
+		{	
+			$("#main_container").css('width',size);
+			$("#title_right").css('right','15px');
+			size = $(window).width() -(15+15+15)
+			$("#title_banner").css('width',size);
+		}	
+		else	
+		{	
+				$("#main_container").css('width',"15px");
+				$("#title_right").css('right','-0px');		
+				
+				size = $(window).width() -(15+15)
+				$("#title_banner").css('width',size);
+				
+				var v = $("#title_banner").css("width");	   
+				l = parseInt(v.substr(0,v.length-2),10)+parseInt(20,10)+ "px"		    	
+				$("#sub_menu_bottom_right").css('left',l)
+		}			
+}	
+//function displayScreenSize(flag)
+//{	
+// 		
+//	var tmp = screen.height-$(window).height();
+//	var obj_height = (screen.height -305 -tmp) + "px";
+//	var obj_height2 = (screen.height -180 -tmp) + "px";
+//	var obj_height3 = (screen.height -180 -tmp) + "px";
+//	var obj_height4 = (screen.height -141-tmp) + "px";
+//	var obj_height5 = (screen.height -155-tmp) + "px";
+//	var location = (screen.height-20-tmp) + "px";
+//	var location2 = (screen.height-30-tmp) + "px";
+//	
+//	$("#mainFrame").css('height',obj_height2);
+//	$("#main_container").css('height',obj_height3);
+//	$("#help_div").css('height',obj_height4);
+//	$("#helpFrame").css('height',obj_height5);
+//	
+//	
+//	//set bottom log locaton
+//
+//	$("#s_logo").css('top',location);
+//	$("#sub_menu_bottom").css('top',location2);
+//	var size= $(window).width() - (15+15+18) + "px";
+//	
+//	var _main_size = size;
+//	$("#main_container").css('width',size);
+//	
+//	//size = screen.width -(15+15+15)
+//	size = $(window).width() -(15+15+15)
+//	size = size + "px";
+//	var _main_menu_size = size;
+//	$("#title_banner").css('width',size);
+//	
+//	var v = $("#main_container").css("width");	   
+//	l = v.substr(0,v.length-2)  
+//	$("#sub_menu_bottom_right").css('left',l+"px");	
+//	l = parseInt(v.substr(0,v.length-2),10)+parseInt(20,10)+ "px"		    	
+//	$("#sub_menu_bottom_right").css('left',l)
+//	$("#title_right").css('right','15px');
+//			
+//	if (flag  == 1)
+//	 	 mainFrame.window.location.reload(); 		    
+//	 
+//}	
+	
+$(document).ready(function()
+{
+	initDiag("/manual_sync/mansyncDiag.html");
+	initDiag("/web/jquery/alerts/alertDiag.html");
+	do_query_HD_Mapping_Info();
+
+	//get banner html
+	get_application_banner();
+	
+	//show login user name
+	show_login_user();
+	
+	//menu link
+	init_menu_link();
+	load_help("/web/help/help_webfile_server.html");
+		
+	displayScreenSize(0);
+	
+	$("#help_icon").click(function(){	  
+			if($("#help_div").hasClass("help_hide"))
+			{
+					$("#help_div").removeClass("help_hide").addClass("help_show");		
+					$("#help_div").show();
+					displayScreenSize(1);
+			}
+			else if($("#help_div").hasClass("help_show"))
+			{					
+					$("#help_div").removeClass("help_show").addClass("help_hide");
+				 	$("#help_div").hide();
+					displayScreenSize(1);				 						
+			}	 							
+	});	
+	setTimeout(function(){language();},3000);
+	
+});
+
+function chk_timeout()
+{
+	var f = init();
+	if (f == "fail")
+	{
+		jAlert( _T('_login','msg5'), _T('_common','error'));
+		
+		$("#popup_ok").click( function (){
+			location.replace("/web/login.html");
+		});
+		
+		return false;
+	}
+	return true;
+}
+
+function detectBrowser()
+{
+  var sAgent = navigator.userAgent.toLowerCase();
+  this.isIE = (sAgent.indexOf("msie")!=-1); //IE6.0-7
+  this.isFF = (sAgent.indexOf("firefox")!=-1);//firefox
+  this.isSa = (sAgent.indexOf("safari")!=-1);//safari
+  this.isOp = (sAgent.indexOf("opera")!=-1);//opera
+  this.isNN = (sAgent.indexOf("netscape")!=-1);//netscape
+  this.isMa = this.isIE;//marthon
+  this.isOther = (!this.isIE && !this.isFF && !this.isSa && !this.isOp && !this.isNN && !this.isSa);//unknown Browser
+}
+</script>
+<body background="/web/images/bg.png" topmargin="0" leftmargin="0" bgcolor="#DDDFE0"  onresize="javascript:displayScreenSize(1);">
+<div class="overlay" id="overlay">
+	<div id="id_result" style="display:none">
+		<div id="id_percentage">0%</div>	
+	</div>
+</div>	
+
+<div id="tooltip" class="tooltip overlay_tooltip"></div>  
+<div id="dialog_overlay" class="dialog_overlay"><div id="share_info" align="center"></div></div>	
+
+<div id="banner" class="banner" style="border: 1px">	
+<div id="login_user" class="login_user"></div>
+</div>
+
+
+	
+		<div id="title_right"></div><!--right corner-->
+		<div id="title_left"></div><!-- left corner -->
+		<div id="title_banner" class="title_banner"><div id="title_div">Web File Server</div></div>
+
+
+
+
+<!--
+<div id="sub_menu_bottom"></div>
+-->
+	<div id="sub_menu_bottom_right"></div>
+	<div id="sub_menu_bottom_left"></div>
+
+	
+		<div id="main_container">
+			<form name="form" id="form"><input type="hidden" name="text_id" id="text_id"></form>
+
+			<iframe id="mainFrame" name="mainFrame" frameborder='0' width="100%" height="100%"  scrolling="no" src="manual_sync/manual_sync_main.html"></iframe>
+			
+		</div>
+
+
+<div id="diagFrame" width="0" height="0" frameborder="0" style="display:none"></div>
+
+<div id="help_div" class="help_div help_show" style="display:">
+<iframe id="helpFrame" name="helpFrame" frameborder='0' width="100%" height="100%"></iframe>
+</div>
+<!--
+<div id="move_icon" style="display:none"><img border="0" src="/web/images/arrow_right.png" width="10" height="10"></div>
+-->
+<div id="help_icon"><img border="0" src="/web/images/management/help.png" width="16" height="16"></div>
+
+<div id="s_logo"><img border="0" src="/web/images/logo2.png"></div>
+<div id="id_msg" style="display:none"></div>
+
+</body>
+<head>
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+</head>
+</html>

@@ -16,7 +16,7 @@ else
 	mkdir -p $DEST
 	cp * $DEST/
 	ln -sf $DEST/manual_sync.cgi /var/www/cgi-bin/manual_sync.cgi
-	ln -sf $DEST/manual_sync.html /var/www/manual_sync.html
+	ln -sf $DEST /var/www/manual_sync
 	popd
 fi
 
