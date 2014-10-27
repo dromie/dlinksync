@@ -1,10 +1,12 @@
 #!/ffp/bin/bash
-LOG="/ffp/home/root/HD/kutya/log"
-HOST=192.168.99.1
-MODULE=temporary
+ROOT="/mnt/HD/HD_a2/sync"
+LOG="$ROOT/log"
+HOST=192.168.99.14
+MODULE=share
 TMPDIR=`mktemp -d -t`
-DEST='/ffp/home/root/HD/kutya/s'
-COMPLETED="/ffp/home/root/HD/kutya/completed"
+DEST='/mnt/HD/HD_a2/share/Incoming'
+COMPLETED="$ROOT/completed"
+#RSYNC="rsync --password-file=`dirname $0`/rsync.secret"
 #get Filelist
 
 COMMAND="sync"
@@ -15,22 +17,28 @@ elif [ "$1" == "fetch" ];then
 	COMMAND="fetch"
 fi
 
+_rsync() {
+	rsync --bwlimit=512 $@
+}
+
 fetch() {
-	rsync -av rsync://$HOST/$MODULE/filelist $TMPDIR >>$LOG 2>&1
+	_rsync -av rsync://$HOST/$MODULE/filelist $TMPDIR >>$LOG 2>&1
 }
 
 makediff() {
 	diff --new-line-format='%L' --unchanged-line-format='' $COMPLETED $TMPDIR/filelist
 }
 
+[ -f $COMPLETED ] || touch $COMPLETED
+
 case $COMMAND in  
 	sync) 
-	[ -f $COMPLETED ] || touch $COMPLETED
+	IFS=$'\n'
+
 	fetch
-	makediff
-	for element in makediff;do 
+	for element in `makediff`;do 
 		echo "Transferring '$element'...."
-		rsync -av rsync://$HOST/$MODULE/$element $DEST >>$LOG 2>&1 && echo $element >>$COMPLETED
+		_rsync -av rsync://$HOST/$MODULE/$element $DEST >>$LOG 2>&1 && echo $element >>$COMPLETED
 	done
 	;;
 	fetch)

@@ -1,0 +1,162 @@
+<div id="shareDiag" class="shareDiag" style="display:">
+<div id="shareDiag_title" class="diag_title"><span class="_text" lang="_remote_backup" datafld="msg22"><!-- Select Path --></span></span></div>
+<br>
+<br>
+	
+	
+	<div id="sDiag_tree" style="display:none">
+		<div style="width:480px;height:250px;overflow:auto" id="tree_container_copy">
+		</div>
+		<br>
+		<div align="right">
+			<table width="150">
+				<tr>
+					<td><div class="button_min exit _text" lang="_button" datafld="Ok" id="a_copy_ok">Ok</div></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+<div id="sDiag_move_tree" style="display:none">
+		<div style="width:480px;height:250px;overflow:auto" id="tree_container_move">
+		</div>
+		<br>
+		<div align="right">
+			<table width="150">
+				<tr>
+					<td><div class="button_min exit _text" lang="_button" datafld="Ok" id="a_move_ok">Ok</div></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+<!-- rename file name -->
+	<div id="sDiag_rename" style="display:none">
+		<div style="width:480px;height:270px">
+		<span class="_text" lang="_wfs" datafld="rename">Rename</span> : <input type="input" size="30" id="f_rename" name="f_rename">
+		</div>
+		<br>
+		<div align="right">
+			<table width="150">
+				<tr>					
+					<td><div class="button_min exit _text" lang="_button" datafld="Ok" id="a_rename_ok">Ok</div></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+<!-- end rename file name -->
+		<div id="sDiag_create_dir" style="display:none">
+		<div style="width:480px;height:270px">
+		<span class="_text" lang="_wfs" datafld="folder_name">Folder Name</span> : <input type="input" size="30" id="f_name" name="f_name">
+		</div>
+		<br>
+		<div align="right">
+			<table width="150">
+				<tr>					
+					<td><div class="button_min exit _text" lang="_button" datafld="Ok" id="a_create_folder_ok">Ok</div></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+<!-- -->	
+
+		<div id="sDiag_upload" style="display:none">
+			<img id="loading" src="/web/jquery/ajaxfileupload/loading.gif" style="display:none;">
+			<form name="form_upload" id="form_upload" method="post" enctype="multipart/form-data" action="/cgi-bin/webfile_mgr.cgi">  
+		<div style="width:480px;height:230px">	
+	<input type="hidden" name="cmd" id="cmd" value="cgi_upload">
+	<input id="fileToUpload" type="file" size="45" name="fileToUpload" class="input">
+
+		</div>
+		<br>
+		<div align="right">
+			<table width="150">
+				<tr>					
+					<td><div class="button_min exit _text" id="a_upload_ok" lang="_button" datafld="Ok" onclick="return ajaxFileUpload();">Ok</div></td>
+				</tr>
+			</table>
+		</div>
+			</form>	
+	</div>
+
+
+
+	<div id="sDiag_properties" style="display:none">
+			<div style="width:480px;height:270px;overflow:auto">	
+				
+			<fieldset>
+				<legend><span class="_text" lang="_wfs" datafld="properties">Properties</span></legend>
+							<table width="100%">
+							<tr >
+								<td width="200px"><span class="_text" lang="_device" datafld="name">Name</span>:</td>
+								<td><div id="p_name"></div></td>
+							</tr>	
+							<tr>
+								<td><span class="_text" lang="_wfs" datafld="location">Location</span>:</td>
+								<td><div id="p_path" ></div></td>
+							</tr>	
+<!--							
+							<tr>
+								<td>Type:</td>
+								<td><div id="p_type"></div></td>
+							</tr>	
+-->							
+							<tr style="display:none">
+								<td><span class="_text" lang="_wfs" datafld="change_time">Change Time</span>:</td>
+								<td><div id="p_change_time"></div></td>
+							</tr>	
+							<tr>
+								<td><span class="_text" lang="_wfs" datafld="modified">Modified Time</span>:</td>
+								<td><div id="p_modify_time"></div></td>
+							</tr>	
+							<tr style="display:none">
+								<td><span class="_text" lang="_wfs" datafld="access_time">Access Time</span>:</td>
+								<td><div id="p_access_time"></div></td>
+							</tr>	
+						</table>			
+			</fieldset>
+			<br>
+			
+		<fieldset>
+					<legend><span class="_text" lang="_wfs" datafld="privilege">Privilege</span></legend>
+					<table width="100%">
+					<tr>
+						<td width="200px"><span class="_text" lang="_wfs" datafld="owner">Owner</span>:</td>
+						<td><div id="p_permission_owner"></div></td>
+					</tr>	
+					<tr>
+						<td><span class="_text" lang="_wfs" datafld="user_group">User Group</span>:</td>
+						<td><div id="p_permission_user_group"></div></td>
+					</tr>	
+					<tr>
+						<td><span class="_text" lang="_login" datafld="others">Others</span>:</td>
+						<td><div id="p_permission_others"></div></td>
+					</tr>	
+					</table>
+		</fieldset>	
+		<br>	
+		<fieldset>
+				<legend><span class="_text" lang="_wfs" datafld="owner_user_group">Owner & User Group</span></legend>
+						<table width="100%">
+					<tr>
+						<td width="200px"><span class="_text" lang="_wfs" datafld="owner">Owner</span>:</td>
+						<td><div id="p_owner"></div></td>
+					</tr>	
+					<tr>
+						<td><span class="_text" lang="_wfs" datafld="user_group">User Group</span>:</td>
+						<td><div id="p_group"></div></td>
+					</tr>					
+					</table>
+		</fieldset>				
+	
+		</div>	
+		<br>
+		<div align="right">
+			<table width="150">
+				<tr>					
+					<td><div class="button_min exit _text" id="a_properties_ok" lang="_button" datafld="Ok">Ok</div></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+</div>

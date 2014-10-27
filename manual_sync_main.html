@@ -1,0 +1,155 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="-1">
+<link rel="stylesheet" type="text/css" href="/web/css/style.css?v20">
+<link rel="stylesheet" type="text/css" href="/web/css/button_style.css">
+<link rel="stylesheet" type="text/css" href="/web/css/application.css">
+<!-- jQuery lib -->
+<link rel="STYLESHEET" type="text/css" href="/web/jquery/css/redmond/jquery-ui-1.7.2.custom.css">
+<script type="text/javascript" src="/web/jquery/js/jquery.js"></script>
+<script type="text/javascript" src="/web/jquery/js/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="/web/jquery/js/ui.core.js"></script>
+<script language="javascript" src="/web/jquery/js/jquery.tools.min.js"></script>
+
+<!-- Flexigrid -->	
+<link rel="STYLESHEET" type="text/css" href="/web/jquery/flexigrid/css/flexigrid.css">
+<script language="javascript" src="/web/jquery/flexigrid/js/flexigrid_webfile.js"></script>
+
+<!-- jAlerts -->
+<link rel="STYLESHEET" type="text/css" href="/web/jquery/alerts/jquery.alerts.css">
+<script language="javascript" src="/web/jquery/alerts/jquery.alerts.js"></script>
+
+<!-- niftycube -->
+<script language="javascript" src="/web/jquery/NiftyCube/niftycube.js"></script>
+<link rel="stylesheet" type="text/css" href="/web/jquery/NiftyCube/niftyCorners.css">
+
+<!-- Foloder tree -->
+<link rel="STYLESHEET" type="text/css" href="/web/jquery/jqueryFileTree/css/jqueryFileTree.css">
+<script language="javascript" src="/web/jquery/jqueryFileTree/js/jqueryFileTree_webfile.js"></script>
+
+<!-- curvycorners -->
+<script language="javascript" src="/web/jquery/curvycorners-2.0.4/curvycorners.src.js"></script>
+
+<link rel="stylesheet" type="text/css" media="all" href="/web/jquery/jScrollPane-1.2.3/styles/jScrollPane.css" />
+<script type="text/javascript" src="/web/jquery/jScrollPane-1.2.3/scripts/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="/web/jquery/jScrollPane-1.2.3/scripts/jScrollPane.js"></script>
+
+<!-- Context Menu -->
+<link href="/web/jquery/jquery.contextMenu-1.01/jquery.contextMenu.css" rel="stylesheet" type="text/css">
+<script type="text/javascript" src="/web/jquery/jquery.contextMenu-1.01/jquery.contextMenu.js"></script>
+<script type="text/javascript" src="/web/jquery/jquery.contextMenu-1.01/jquery.contextMenu_webfile.js"></script>
+<script>
+var sys_time = (new Date()).getTime();
+document.write("<script language=\"javascript\" src=\"\/web\/function\/function.js?id="+sys_time+"\"><\/script>");    
+//document.write("<script language=\"javascript\" src=\"\/web\/function\/init.js?id="+sys_time+"\"><\/script>"); 
+document.write("<link rel=\"STYLESHEET\" type=\"text/css\" href=\"../css/style.css?id="+  sys_time+"\">");
+document.write("<script language=\"javascript\" src=\"manual_sync.js?id="+sys_time+"\"><\/script>"); 
+document.write("<script language=\"javascript\" src=\"/web/function/language.js?id="+sys_time+"\"><\/script>");
+
+document.write("<script language=\"javascript\" src=\"/web/function/web_security.js?id="+sys_time+"\"><\/script>");
+
+</script>
+<style>
+#tree_container{
+	/*border: solid 1px #c4c4c4;*/	
+	border-right-width:1px;
+	border-right-style:solid;
+	border-right-color:#c4c4c4;
+}
+
+.file{	
+	text-indent:20px;
+	background-image: url("/web/jquery/jqueryFileTree/images/file.png");
+	background-repeat: no-repeat;
+	line-height:7px;
+}
+.folder{	
+	text-indent:15px;													
+	background-image: url("/web/jquery/jqueryFileTree/images/directory.png");
+	background-repeat: no-repeat;
+	line-height:6px;
+}
+</style>
+<body>
+	
+	<div class="overlay" id="overlay">
+	<div id="id_result" style="display:none">
+		<div id="id_percentage">0%</div>	
+	</div>
+</div>	
+	
+<div class="osX">
+<div id="my_scroll">
+		
+		<table>		
+	<tr>
+		<td valign="top">					
+				<div style="width:190px;height:350px;overflow:auto" id="tree_container"></div>	
+		</td>	
+		<td valign="top" >
+	
+	
+				 <table>
+					
+						<tr>									
+									<td ><div class="button _text" id="id_up" lang="_wfs" datafld="up"><!--Up--></div></td>
+									<td ><div class="button _text" id="id_upload" lang="_wfs" datafld="upload"><!--Upload--></div> </td>
+									<td ><div class="button _text" id="id_donwload" lang="_wfs" datafld="download"><!--Download--></div></td>
+									<td ><div class="button _text" id="id_refresh" lang="_wfs" datafld="refresh"><!--Refresh--></div></td>					
+																								
+						</tr>	
+					</table>
+					<table>						
+						<tr>
+							<td><div style="margin-left:5px;margin-bottom:0px;height:20px;color:#333333"><span class="_text" lang="_network_access" datafld="path" ><!-- Path --></span>:</div></td>
+							<td>
+					<div id="id_now_path" style="margin-left:5px;margin-bottom:0px;height:20px;color:#333333"></div>
+							</td>
+						</tr>	
+					</table>
+
+				
+					<div id="id_main" >
+					<table id="flex1"></table>  
+					</div>
+						
+						
+
+					<ul id="myMenu" class="contextMenu">
+					    <li class="download"><a href="#Download"><span class="_text" lang="_wfs" datafld="download">Download</span></a></li>        
+					    <li class="copy"><a href="#Copy"><span class="_text" lang="_wfs" datafld="copy">Copy</span></a></li>                    
+					    <li class="import"><a href="#Move"><span class="_text" lang="_wfs" datafld="move">Move</span></a></li>
+					    
+					    <li class="delete"><a href="#Delete"><span class="_text" lang="_common" datafld="del">Delete</span></a></li>
+					    <li class="edit"><a href="#Rename"><span class="_text" lang="_wfs" datafld="rename">Rename</span></a></li>
+					    <li class="list"><a href="#Properties"><span class="_text" lang="_wfs" datafld="properties">Properties</span></a></li>
+					</ul>
+
+				<ul id="myMenu1" class="contextMenu">
+					<li class="copy"><a href="#Copy"><span class="_text" lang="_wfs" datafld="copy">Copy</span></a></li>
+					<li class="icon-remove"><a href="#Move"><span class="_text" lang="_wfs" datafld="move">Move</span></a>
+				</ul>	
+
+		</td>
+	</tr>		
+</table>		
+
+</div>
+</div>
+
+<form action="/cgi-bin/webfile_mgr.cgi" method="post" name="form_download">
+<input type="hidden" name="cmd" value="cgi_download">	
+<input type="hidden" name="path">	
+<input type="hidden" name="path1">	
+<input type="hidden" name="name">
+<input type="hidden" name="type">	
+<input type="hidden" name="browser">	
+</form>	
+	
+		
+</body>
+</html>
