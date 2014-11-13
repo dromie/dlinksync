@@ -1,13 +1,13 @@
 #!/ffp/bin/bash
-ROOT="/mnt/HD/HD_a2/sync"
-LOG="$ROOT/log"
-HOST=192.168.99.14
-MODULE=sync
-TMPDIR=`mktemp -d -t`
-DEST='/mnt/HD/HD_a2/sync/Incoming'
-COMPLETED="$ROOT/completed"
-#RSYNC="rsync --password-file=`dirname $0`/rsync.secret"
-#get Filelist
+source `dirname $0`/variables.sh
+if [ "$1" == "cron" ];then
+	exec 3>/dev/null
+else
+	exec 3>&1
+fi
+exec 4>>$LOG
+exec >&4
+exec 2>&4
 
 COMMAND="sync"
 
@@ -38,7 +38,7 @@ case $COMMAND in
 
 	fetch
 	for element in `makediff`;do 
-		echo "Transferring '$element'...."
+		echo "Transferring '$element'...." >&3
 		_rsync -avz rsync://$HOST/$MODULE/$element $DEST >>$LOG 2>&1 && echo $element >>$COMPLETED
 		export TR_TORRENTDIR=$DEST
 		export TR_TORRENT_NAME=$element
@@ -47,7 +47,7 @@ case $COMMAND in
 	;;
 	fetch)
 	fetch
-	makediff
+	makediff >&3
 	;;
 esac
 
