@@ -1,5 +1,6 @@
 #!/ffp/bin/bash
 export PATH=/opt/bin:/ffp/bin:$PATH
+FILELIST="filelist"
 ROOT="/mnt/HD/HD_a2/sync"
 LOG="$ROOT/log"
 HOST=192.168.99.14

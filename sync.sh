@@ -22,12 +22,11 @@ _rsync() {
 }
 
 fetch() {
-	_rsync -avz rsync://$HOST/$MODULE/filelist $TMPDIR >>$LOG 2>&1
+	_rsync -avz rsync://$HOST/$MODULE/$FILELIST $TMPDIR >>$LOG 2>&1
 }
 
 makediff() {
-	diff $COMPLETED $TMPDIR/filelist |grep '^>'|cut -f2- -d' '|grep -v '^$'
-#	diff --new-line-format='%L' --unchanged-line-format='' $COMPLETED $TMPDIR/filelist
+	diff $COMPLETED $TMPDIR/$FILELIST |grep '^>'|cut -f2- -d' '|grep -v '^$'
 }
 
 [ -f $COMPLETED ] || touch $COMPLETED
